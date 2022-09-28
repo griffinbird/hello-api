@@ -1,5 +1,5 @@
 # Hello API
-Hello pipleline is a simple application to demostrate buildinga continuous delivery
+Hello pipleline is a simple application to demostrate building a continuous delivery
 pipeline.
 
 # Dependencies
