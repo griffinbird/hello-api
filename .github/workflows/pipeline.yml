@@ -2,34 +2,34 @@ name: CI Checks
 
 on:
   push:
-    branches: 
+    branches: # <1>
       - main
-    paths:
-      - cmd/**
+defaults: # DO NOT INCLUDE
+  run:
+    working-directory: ./cmd
 jobs:
   build:
     name: Build App
-    runs-on: ubuntu-latest 
-  steps:
-  
-  - name: Set up Go 1.x
-    uses: actions/setup-go@v2
-    with:
-      go-version: ^1.16
+    runs-on: ubuntu-latest #
+    steps:
 
-  - name: Check out code into the Go module directory
-    uses: actions/checkout@v2
+    - name: Set up Go 1.x #
+      uses: actions/setup-go@v2
+      with:
+        go-version: ^1.16
 
-  - name: Build
-    run: make build
+    - name: Check out code into the Go module directory #
+      uses: actions/checkout@v2
 
-  - name: Copy Files
-    run: |
-        mkdir artifacts
-        cp api artifacts/.
+    - name: Build
+      run: make build #
 
-  - name: Archive
-    uses: actions/upload-artifact@v2
-    with:
-      name: api 
-      path: artifacts
+    - name: Copy Files #
+      run: |
+            mkdir  artifacts
+            cp api artifacts/.
+    - name: Archive #
+      uses: actions/upload-artifact@v2
+      with:
+          name: api #
+          path: artifacts
