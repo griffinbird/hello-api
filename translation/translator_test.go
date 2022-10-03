@@ -2,35 +2,52 @@ package translation_test
 
 import (
 	"testing"
-
 	"github.com/griffinbird/hello-api/translation"
 )
 
 func TestTranslate(t *testing.T) {
 	//Arrange
-	word := "hello"
-	language := "english"
-
-	//Act
-	res := translation.Translate(word, language)
-
-	//Assert
-	if res != "hello" {
-		t.Errorf(`expected "hello" but received "%s"`, res)
+	tt := []struct {
+		Word		string
+		Language 	string
+		Translation string
+	}{
+		{
+			Word:		"hello",
+			Language:	"english",
+			Translation: "hello",
+		},
+		{
+			Word:		"hello",
+			Language:	"german",
+			Translation: "hallo",
+		},
+		{
+			Word:		"hello",
+			Language:	"finnish",
+			Translation: "hei",
+		},
+		{
+			Word:		"hello",
+			Language:	"dutch",
+			Translation: "",
+		},
+		{
+			Word:		"bye",
+			Language:	"german",
+			Translation: "",
+		},
 	}
 
-	res = translation.Translate("hello", "german") 
-	if res != "hallo" {
-		t.Errorf(`expected "hallo" but recieved "%s"`, res)
-	}
+	for _, test := range tt {
+		// Act
+		res := translation.Translate(test.Word, test.Language) 
 
-	res = translation.Translate("hello", "finnish") 
-	if res != "hei" {
-		t.Errorf(`expected "hei" but received "%s"`, res)
-	}
-
-	res = translation.Translate("hello", "dutch") 
-	if res != "" {
-		t.Errorf(`expected "" but received "%s"`, res)	
+		// Assert
+		if res !=  test.Translation {
+			t.Errorf(
+				`expected "%s" to be "%s" from "%s" but received "%s"`,
+				test.Word, test.Language, test.Translation, res)
+		}
 	}
 }
